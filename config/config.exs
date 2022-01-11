@@ -25,6 +25,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :new_relic_agent,
+  app_name: System.get_env("NEW_RELIC_APP_NAME"),
+  license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+  # absinthe_instrumentation_enabled: false
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

@@ -2,21 +2,27 @@ defmodule ProductsWeb.Router do
   use ProductsWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   pipeline :graphql do
-    plug Plug.RequestId
-    plug Plug.Logger
+    plug(Plug.RequestId)
+    plug(Plug.Logger)
 
-    plug Plug.Parsers,
+    plug(Plug.Parsers,
       parsers: [:urlencoded, :multipart, :json],
       pass: ["*/*"],
       json_decoder: Jason
+    )
   end
 
   scope "/" do
-    pipe_through [:graphql]
+    pipe_through([:graphql])
     forward("/graphiql", Absinthe.Plug.GraphiQL, schema: ProductsWeb.Schema)
+  end
+
+  scope "/api" do
+    pipe_through([:api])
+    get "/products/:product", ProductsWeb.SampleController, :show
   end
 end

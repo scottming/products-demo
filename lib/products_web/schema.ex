@@ -14,9 +14,9 @@ defmodule ProductsWeb.Schema do
   end
 
   object :product do
-    field(:id, non_null(:id))
-    field(:sku, :string)
-    field(:package, :string)
+    field :id, non_null(:id)
+    field :sku, :string
+    field :package, :string
 
     field :dimensions, :product_dimension do
       resolve(&Resolver.product_dimension/3)
@@ -33,7 +33,11 @@ defmodule ProductsWeb.Schema do
   end
 
   object :user do
-    field(:email, non_null(:id))
-    field(:total_products_created, :integer)
+    field :email, non_null(:id)
+    field :total_products_created, :integer
   end
+
+  # def middleware(middleware, _field, _object) do
+  #   [NewRelic.Absinthe.Middleware | middleware]
+  # end
 end

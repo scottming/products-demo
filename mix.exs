@@ -33,14 +33,18 @@ defmodule Products.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:exsync, "~> 0.2", only: :dev},
       {:absinthe, "~> 1.6"},
       {:absinthe_plug, "~> 1.5"},
+      {:new_relic_absinthe, "~> 0.0.4"},
+      {:new_relic_agent, path: "../elixir_agent", override: true},
       {:phoenix, "~> 1.6.4"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:telemetry, "~> 0.4.3 or ~> 1.0", override: true},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
