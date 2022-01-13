@@ -20,4 +20,9 @@ defmodule ProductsWeb.Resolver do
     Process.sleep(800)
     {:ok, %{email: "support@apollographql.com", total_products_created: 1337}}
   end
+
+  def user_profile(_, _, _) do
+    Process.sleep(100)
+    {:ok, %{info: "user info"}}
+  end
 end

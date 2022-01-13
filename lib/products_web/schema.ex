@@ -35,6 +35,15 @@ defmodule ProductsWeb.Schema do
   object :user do
     field :email, non_null(:id)
     field :total_products_created, :integer
+
+    field :profile, :user_profile do
+      resolve(&Resolver.user_profile/3)
+    end
+  end
+
+  object :user_profile do
+    field :info, :string do
+    end
   end
 
   # def middleware(middleware, _field, _object) do

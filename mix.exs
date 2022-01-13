@@ -36,7 +36,7 @@ defmodule Products.MixProject do
       {:exsync, "~> 0.2", only: :dev},
       {:absinthe, "~> 1.6"},
       {:absinthe_plug, "~> 1.5"},
-      {:new_relic_absinthe, "~> 0.0.4"},
+      # {:new_relic_absinthe, path: "../../Documents/ArchRepo/new_relic_absinthe"},
       {:new_relic_agent, path: "../elixir_agent", override: true},
       {:phoenix, "~> 1.6.4"},
       {:phoenix_ecto, "~> 4.4"},
