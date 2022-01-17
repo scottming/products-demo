@@ -1,6 +1,7 @@
 defmodule ProductsWeb.Schema do
   use Absinthe.Schema
   alias ProductsWeb.Resolver
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
   query do
     field :all_products, list_of(:product) do
@@ -14,27 +15,25 @@ defmodule ProductsWeb.Schema do
   end
 
   object :product do
-    field :id, non_null(:id)
-    field :sku, :string
-    field :package, :string
+    field(:id, non_null(:id))
+    field(:sku, :string)
+    field(:package, :string)
 
-    field :dimensions, :product_dimension do
-      resolve(&Resolver.product_dimension/3)
-    end
+    field(:dimensions, list_of(:product_dimension), resolve: dataloader(Products.Core))
 
-    field :created_by, :user do
+    field(:created_by, :user) do
       resolve(&Resolver.user/3)
     end
   end
 
   object :product_dimension do
-    field :size, :string
-    field :weight, :integer
+    field(:size, :string)
+    field(:weight, :integer)
   end
 
   object :user do
-    field :email, non_null(:id)
-    field :total_products_created, :integer
+    field(:email, non_null(:id))
+    field(:total_products_created, :integer)
 
     field :profile, :user_profile do
       resolve(&Resolver.user_profile/3)
@@ -46,7 +45,15 @@ defmodule ProductsWeb.Schema do
     end
   end
 
-  # def middleware(middleware, _field, _object) do
-  #   [NewRelic.Absinthe.Middleware | middleware]
-  # end
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Products.Core, Products.Core.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
+  end
 end

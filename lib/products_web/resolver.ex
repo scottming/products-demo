@@ -13,7 +13,7 @@ defmodule ProductsWeb.Resolver do
 
   def product_dimension(_, _, _) do
     Process.sleep(500)
-    {:ok, %{size: "1", weight: 1}}
+    {:ok, [%{size: "1", weight: 1}]}
   end
 
   def user(_, _, _) do

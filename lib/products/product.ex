@@ -5,5 +5,6 @@ defmodule Products.Product do
     field(:sku, :string)
     field(:package, :string)
     field(:created_by, :id)
+    has_many(:dimensions, Products.ProductDimension)
   end
 end
