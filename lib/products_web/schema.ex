@@ -19,7 +19,7 @@ defmodule ProductsWeb.Schema do
     field(:sku, :string)
     field(:package, :string)
 
-    field(:dimensions, list_of(:product_dimension), resolve: dataloader(Products.Core))
+    field :dimensions, list_of(:product_dimension), resolve: dataloader(Products.Core)
 
     field(:created_by, :user) do
       resolve(&Resolver.user/3)
